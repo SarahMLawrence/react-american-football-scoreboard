@@ -1,12 +1,15 @@
 //TODO: STEP 1 - Import the useState hook.
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./App.css";
 import BottomRow from "./BottomRow";
 
+
 function App() {
   //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
-  const[totalHome, setTotalHome] = useState(0);
-  const[totalAway, setTotalAway] = useState(0);
+  const [totalHome, setTotalHome] = useState(0);
+  const [totalAway, setTotalAway] = useState(0);
+
+  const [numQuarter, setQuarter] = useState(1);
 
   return (
     <div className="container">
@@ -26,6 +29,10 @@ function App() {
           </div>
         </div>
         <BottomRow />
+        <div className="quarter">
+          <h3 className="quarter__title">Quarter</h3>
+          <div className="quarter__value">{numQuarter}</div>
+        </div>
       </section>
       <section className="buttons">
         <div className="homeButtons">
@@ -40,20 +47,21 @@ function App() {
               setTotalHome(totalHome + 1)
             }
           }>Home Field Goal</button>
+
           <button className="reset" onClick={
             () => {
               setTotalHome(0)
             }
           }>Home - Reset Score</button>
-        
+
         </div>
         <div className="awayButtons">
-          <button className="awayButtons__touchdown" onClick = {
+          <button className="awayButtons__touchdown" onClick={
             () => {
               setTotalAway(totalAway + 6)
             }
           }>Away Touchdown</button>
-          <button className="awayButtons__fieldGoal" onClick = {
+          <button className="awayButtons__fieldGoal" onClick={
             () => {
               setTotalAway(totalAway + 1)
             }
@@ -65,10 +73,21 @@ function App() {
             }
           }>Away Reset Score</button>
 
+          <button className="quarter" onClick={
+            () => {
+              setQuarter(numQuarter + 1);
+
+              if (numQuarter == 4) {
+                setQuarter(0);
+                alert('yay! game over');
+              }
+            }
+          }>quarter</button>
+
         </div>
 
 
-       
+
       </section>
     </div>
   );
